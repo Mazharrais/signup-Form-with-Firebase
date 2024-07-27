@@ -4,6 +4,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 // import Auth from fire base....
 import { getAuth, signOut, onAuthStateChanged, sendEmailVerification} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+// import fireStore from fire base...
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,6 +22,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
@@ -70,3 +74,26 @@ function logOut(){
 
 document.getElementById("logOutBtn").addEventListener("click", logOut);
 
+
+
+const createProfile = async () => {
+
+    try {
+        const docRef = await addDoc(collection(db, "students"), {
+          
+
+
+
+            
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+
+
+
+}
+
+
+document.getElementById("profileBtn").addEventListener("click", createProfile)
