@@ -86,6 +86,7 @@ function validateUser() {
                    document.getElementById("lname").value = userDoc.data().last;
                    document.getElementById("profileBtn").value = "update profile";
                    document.getElementById("profileBtn").addEventListener("click",updateProfile);
+                   console.log(updateProfile);
                 }
              });
             }
