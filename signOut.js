@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/fireba
 // import Auth from fire base....
 import { getAuth, signOut, onAuthStateChanged, sendEmailVerification} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 // import fireStore from fire base...
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,8 +26,21 @@ const db = getFirestore(app);
 
 
 let userEmail;
+let docId;
 
 
+
+
+
+function updateProfile(){
+ if(document.getElementById("profileBtn").value == "Update Profile"){
+    
+ }
+
+
+
+
+}
 
 
 
@@ -56,19 +69,19 @@ function validateUser() {
             }
             else {
                 userEmail = user.email;
-            //     const querySnapshot = await getDocs(collection(db, "students"));
-            //     querySnapshot.forEach((doc) => {
-            //     // console.log(`${doc.id} => ${doc.data()}`);
-            //     if(doc.data().email == userEmail){
+                const querySnapshot = await getDocs(collection(db, "students"));
+                querySnapshot.forEach((userDoc) => {
+                // console.log(`${doc.id} => ${doc.data()}`);
+                if(doc.data().email == userEmail){
   
-            //       docId = doc.id;
-            //       document.getElementById("fname").value = doc.data().first;
-            //        document.getElementById("mname").value = doc.data().middle;
-            //        document.getElementById("lname").value = doc.data().last;
-            //        document.getElementById("profileBtn").value = "update profile";
-            //        document.getElementById("profileBtn").addEventListener("click",updateProfile);
-            //     }
-            //  });
+                  docId = userDoc.id;
+                  document.getElementById("fname").value = doc.data().first;
+                   document.getElementById("mname").value = doc.data().middle;
+                   document.getElementById("lname").value = doc.data().last;
+                   document.getElementById("profileBtn").value = "update profile";
+                   document.getElementById("profileBtn").addEventListener("click",updateProfile);
+                }
+             });
             }
             // ...
         } else {
@@ -114,7 +127,7 @@ const createProfile = async () => {
         });
         // console.log(userEmail);
         console.log("Document written with ID: ", docRef.id);
-        // docID = docRef.id
+         docId = docRef.id
       } catch (e) {
         console.error("Error adding document: ", e);
       }
