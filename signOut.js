@@ -144,4 +144,4 @@ const createProfile = async () => {
 }
 
 
- document.getElementById("profileBtn").addEventListener("click", createProfile);
+  document.getElementById("profileBtn").addEventListener("click", createProfile);
