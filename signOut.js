@@ -75,7 +75,7 @@ function validateUser() {
             }
             else {
                 userEmail = user.email;
-                const querySnapshot = await getDocs(collection(db, "students"));
+                const querySnapshot = await getDocs(collection(db, "users"));
                 querySnapshot.forEach((userDoc) => {
                 // console.log(`${doc.id} => ${doc.data()}`);
                 if(userDoc.data().email == userEmail){
@@ -86,7 +86,7 @@ function validateUser() {
                    document.getElementById("lname").value = userDoc.data().last;
                    document.getElementById("profileBtn").value = "update profile";
                    document.getElementById("profileBtn").addEventListener("click",updateProfile);
-                   console.log(updateProfile);
+                   
                 }
              });
             }
