@@ -3,7 +3,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 // import Auth from fire base....
-import { getAuth, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged, sendEmailVerification} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,10 +24,25 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    console.log(user);
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
-    // ...
+    if(!user.emailVerified){
+        console.log(user.emailVerified);
+        // window.alert("Kindly verify your Email in order to proceed...")
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+            // Email verification sent!
+            window.location = "index.html";
+        })
+        .catch((error)=>{
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+        });
+        
+    }
   } else {
     // User is signed out
     window.location  = "index.html";
